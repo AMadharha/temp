@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Valentine's Day</title>
+<style>
+    body {
+        background-color: #FDF5E6; /* Off white background */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+    }
+    #container {
+        text-align: center;
+    }
+    button {
+        margin: 10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+    #yesButton {
+        transition: transform 0.2s;
+    }
+    h1 {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+</style>
+</head>
+<body>
+
+<div id="container">
+    <img src="./design.gif" alt="Cat GIF">
+    <h1>Will you be my valentine?</h1>
+    <button id="yesButton">Yes</button>
+    <button id="noButton">No</button>
+</div>
+
+<script>
+    let noCount = 0;
+    const yesButton = document.getElementById('yesButton');
+    const noButton = document.getElementById('noButton');
+
+    noButton.addEventListener('click', function() {
+        noCount++;
+        yesButton.style.transform = `scale(${1 + noCount * 0.1})`;
+
+        if (noCount >= 30) {
+            noButton.remove();
+        }
+    });
+
+    yesButton.addEventListener('click', function() {
+        window.location.href = 'yes.html'; // Redirect to the new page
+    });
+</script>
+
+</body>
+</html>

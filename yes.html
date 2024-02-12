@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Yes Response</title>
+<style>
+    body {
+        background-color: #FDF5E6;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        overflow: hidden;
+    }
+    .moving-image {
+        position: absolute;
+        width: 200px; 
+    }
+    h1 {
+        margin-top: 350px;
+    }
+    .top { top: 20px; }
+    .bottom { bottom: 20px; }
+</style>
+</head>
+<body>
+
+<h1>Thank you for saying Yes! ❤️</h1>
+
+<img src="images/1.JPG" class="moving-image top" id="image1">
+<img src="images/2.JPG" class="moving-image top" id="image2">
+<img src="images/3.HEIC" class="moving-image top" id="image3">
+
+<img src="images/4.HEIC" class="moving-image bottom" id="image4">
+<img src="images/5.jpg" class="moving-image bottom" id="image5">
+<img src="images/6.png" class="moving-image bottom" id="image6">
+
+<script>
+    const images = document.querySelectorAll('.moving-image');
+    const speeds = [2, 2.5, 3, 2.5, 3, 3.5]; // Different speeds for each image
+
+    // Dynamically calculate initial positions to avoid sticking
+    const screenWidth = window.innerWidth;
+    const imageSpacing = screenWidth / (images.length + 1); // Evenly space out images
+
+    images.forEach((img, index) => {
+        let direction = index % 2 === 0 ? 1 : -1; // Alternate directions
+        img.setAttribute('data-direction', direction);
+        // Ensure images start inside the viewport and spaced out
+        img.style.left = `${Math.min(screenWidth - img.offsetWidth, imageSpacing * (index + 1))}px`;
+    });
+
+    function moveImages() {
+        images.forEach((img, index) => {
+            let direction = parseInt(img.getAttribute('data-direction'), 10);
+            let currentLeft = parseInt(window.getComputedStyle(img).left, 10);
+            let speed = speeds[index];
+            
+            if (currentLeft >= window.innerWidth - img.offsetWidth || currentLeft <= 0) {
+                direction *= -1; // Change direction
+                img.setAttribute('data-direction', direction);
+            }
+            
+            img.style.left = currentLeft + direction * speed + 'px';
+        });
+    }
+
+    setInterval(moveImages, 20); // Adjust interval for smoother or faster animation
+
+</script>
+
+</body>
+</html>
